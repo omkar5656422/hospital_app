@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Hospital Services ATM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+       <!-- Slide 1: Splash Screen -->
+        <div id="splash-slide" class="slide splash-slide">
+            <div class="splash-content">
+                <h1 class="text-7xl md:text-8xl font-extrabold mb-4 animate-pulse-once">SUM Hospital</h1>
+                <p class="text-3xl md:text-4xl font-light mb-12">Your Health, Our Priority</p>
+             <a href="{{ url_for('menu') }}"><button id="start-btn" class="primary-btn px-12 py-6 text-3xl font-bold animate-pulse-once">Touch to Start</button></a>
+            </div>
+        </div>
+
+       
+    
+</body>
+<script>
+document.getElementById("appointment-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("patient-name").value;
+    const department = document.getElementById("department").value;
+    const date = document.getElementById("appointment-date").value;
+    const time = document.getElementById("appointment-time").value;
+
+    try {
+        const response = await fetch("/save-appointment", {  // relative URL works since served by Flask
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, department, date, time })
+        });
+
+        const result = await response.json();
+        alert(result.message); // show success popup
+    } catch (error) {
+        alert("Error saving appointment!");
+        console.error(error);
+    }
+});
+</script>
+
+</html>

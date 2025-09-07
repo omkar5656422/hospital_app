@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Hospital Services ATM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+    <!-- Slide 6: Queue Status -->
+        <div id="queue-slide" class="slide flex-col space-y-8">
+            <div class="bg-image-overlay" style="background-image: url('https://images.unsplash.com/photo-1583095368686-3023910c2688?q=80&w=2670&auto=format&fit=crop');"></div>
+            <div class="relative z-10 w-full max-w-4xl p-8 rounded-2xl card flex flex-col items-center">
+                <h2 class="text-4xl font-semibold text-gray-800 mb-6">Queue Status</h2>
+                <div id="queue-display" class="w-full">
+                    <p class="text-center text-gray-500">Loading queue data...</p>
+                </div>
+            </div>
+            <a href="menu.html">  <button data-target="main-menu-slide" class="nav-btn-back primary-btn self-start">Back</button>   </a>
+   
+        </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Hospital Services ATM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+</head>
+<body>
+      <!-- Slide 3: Appointment Booking -->
+        <div id="appointments-slide" class="slide flex-col space-y-8">
+            <div class="bg-image-overlay" style="background-image: url('https://images.unsplash.com/photo-1551076802-07a8264d84f4?q=80&w=2574&auto=format&fit=crop');"></div>
+            <div class="relative z-10 w-full max-w-4xl p-8 rounded-2xl card flex flex-col items-center">
+                <h2 class="text-4xl font-semibold text-gray-800 mb-6">Book an Appointment</h2>
+                <form id="appointment-form" class="w-full space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex flex-col">
+                            <label for="patient-name" class="mb-2 font-medium text-gray-700">Full Name</label>
+                            <input type="text" id="patient-name" placeholder="Enter your full name" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="department" class="mb-2 font-medium text-gray-700">Department</label>
+                            <select id="department" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                                <option value="" disabled selected>Select a Department</option>
+                                <option value="Cardiology">Cardiology</option>
+                                <option value="Neurology">Neurology</option>
+                                <option value="Orthopedics">Orthopedics</option>
+                                <option value="Pediatrics">Pediatrics</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div class="flex flex-col">
+                            <label for="appointment-date" class="mb-2 font-medium text-gray-700">Preferred Date</label>
+                            <input type="date" id="appointment-date" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                        </div>
+                        <div class="flex flex-col">
+                            <label for="appointment-time" class="mb-2 font-medium text-gray-700">Preferred Time</label>
+                            <input type="time" id="appointment-time" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                        </div>
+                    </div>
+                    <button type="submit" id="book-appointment-btn" class="w-full primary-btn">
+                        <span id="book-btn-text">Proceed to Payment</span>
+                        <div id="book-btn-spinner" class="spinner mx-auto hidden"></div>
+                    </button>
+                </form>
+            </div>
+              <a href="{{ url_for('menu') }}" >  <button data-target="main-menu-slide" class="nav-btn-back primary-btn self-start">Back</button></a>
+           
+        </div>
+</body>
+<script>
+document.getElementById("appointment-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("patient-name").value;
+    const department = document.getElementById("department").value;
+    const date = document.getElementById("appointment-date").value;
+    const time = document.getElementById("appointment-time").value;
+
+    try {
+        const response = await fetch("/save-appointment", {  // relative URL works since served by Flask
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, department, date, time })
+        });
+
+        const result = await response.json();
+        alert(result.message); // show success popup
+    } catch (error) {
+        alert("Error saving appointment!");
+        console.error(error);
+    }
+});
+</script>
+
+
+</html>

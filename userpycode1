@@ -1,0 +1,42 @@
+from flask import Flask, render_template, request, jsonify
+import csv, os
+
+app = Flask(__name__)
+
+CSV_FILE = "demographics.csv"
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
+@app.route('/live-appointments')
+def live_appointments():
+    return render_template("live_appointments.html")
+
+@app.route('/hospitals-near-me')
+def hospitals_near_me():
+ return render_template("hospitals_near_me.html")
+
+@app.route('/med_box')
+def med_box():
+ return render_template("med_box.html")
+
+
+@app.route("/save_demographics", methods=["POST"])
+def save_demographics():
+    data = request.get_json()
+    if not data:
+        return jsonify({"message": "❌ No data received"}), 400
+
+    file_exists = os.path.isfile(CSV_FILE)
+
+    with open(CSV_FILE, "a", newline="", encoding="utf-8") as file:
+        writer = csv.DictWriter(file, fieldnames=data.keys())
+        if not file_exists:
+            writer.writeheader()
+        writer.writerow(data)
+
+    return jsonify({"message": "✅ Data saved to CSV!"})
+
+if __name__ == "__main__":
+    app.run(debug=True)

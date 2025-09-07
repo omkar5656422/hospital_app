@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Hospital Services ATM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+
+        <!-- Slide 2: Main Menu -->
+        <div id="main-menu-slide" class="slide flex-col">
+            <div class="bg-image-overlay" style="background-image: url('https://images.unsplash.com/photo-1579684385140-f1c65d53a9e3?q=80&w=2574&auto=format&fit=crop');"></div>
+            <div class="relative z-10 w-full max-w-5xl p-8 rounded-2xl shadow-2xl bg-white backdrop-blur-sm card">
+                <h2 class="text-4xl md:text-5xl font-extrabold text-blue-900 mb-8 text-center">Main Menu</h2>
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6">
+                    <a href="{{ url_for('appointments') }}"  
+   class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+    <span class="service-icon" role="img" aria-label="Appointments">📅</span>
+    <h3 class="text-xl font-semibold text-gray-800">Appointments</h3>
+    <p class="text-sm text-gray-500 hidden md:block">Book and pay for an appointment.</p>
+</a>
+
+
+                      
+
+                    <button onclick="window.location.href='beds.html'" 
+        class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+    <span class="service-icon" role="img" aria-label="Bed Availability">🛏️</span>
+    <h3 class="text-xl font-semibold text-gray-800">Bed Availability</h3>
+    <p class="text-sm text-gray-500 hidden md:block">See real-time bed status across wards.</p>
+</button>
+
+                    <button onclick="window.location.href='doctors.html'" class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+                        <span class="service-icon" role="img" aria-label="Find a Doctor">🩺</span>
+                        <h3 class="text-xl font-semibold text-gray-800">Find a Doctor</h3>
+                        <p class="text-sm text-gray-500 hidden md:block">Search for specialists and their schedules.</p>
+                    </button>
+                    <button onclick="window.location.href='Queue.html'" class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+                        <span class="service-icon" role="img" aria-label="Queue Status">🚶</span>
+                        <h3 class="text-xl font-semibold text-gray-800">Queue Status</h3>
+                        <p class="text-sm text-gray-500 hidden md:block">View live queue and wait times.</p>
+                    </button>
+                    <button onclick="window.location.href='labreport.html'" class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+                        <span class="service-icon" role="img" aria-label="Lab Reports">📋</span>
+                        <h3 class="text-xl font-semibold text-gray-800">Lab Reports</h3>
+                        <p class="text-sm text-gray-500 hidden md:block">Pay to retrieve your lab and test reports.</p>
+                    </button>
+                    <button data-target="emergency-slide" class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+                        <span class="service-icon" role="img" aria-label="Emergency">🚨</span>
+                        <h3 class="text-xl font-semibold text-gray-800">Emergency</h3>
+                        <p class="text-sm text-gray-500 hidden md:block">Access critical emergency information.</p>
+                    </button>
+                    <button onclick="window.location.href='healthcheck.html'" class="nav-btn p-6 rounded-xl text-center flex flex-col items-center justify-center space-y-3 card">
+                         <img src="https://placehold.co/48x48/3B82F6/FFFFFF?text=HC" alt="General Health Check" class="w-12 h-12 mb-2 rounded-full">
+                        <h3 class="text-xl font-semibold text-gray-800">Health Check</h3>
+                        <p class="text-sm text-gray-500 hidden md:block">Get a quick health screening.</p>
+                    </button>
+                </div>
+                <div id="user-info" class="mt-8 text-sm text-gray-500 hidden">
+                    <p>Your temporary ID: <span id="user-id-display" class="font-mono text-xs"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Chat Button -->
+    <div id="ai-chat-btn" class="flex flex-col items-center justify-center">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+    </div>
+
+    <!-- AI Chat Widget -->
+    <div id="ai-chat-widget">
+        <div id="chat-header">
+            <h3 class="text-lg font-bold">AI Assistant</h3>
+            <button id="close-chat-btn" class="w-6 h-6"><svg class="w-full h-full" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button>
+        </div>
+        <div id="chat-body" class="p-4 overflow-y-auto space-y-4">
+            <div class="message ai">Hello! I'm your virtual hospital assistant. How can I help you today?</div>
+            <div class="message ai text-xs text-gray-500">Disclaimer: I am an AI assistant and cannot provide medical diagnoses. Always consult a qualified medical professional for any health concerns.</div>
+        </div>
+        <div id="chat-input-container">
+            <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-grow p-3 rounded-l-lg border border-gray-300 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" readonly>
+            <button id="chat-send-btn" class="primary-btn px-6 rounded-r-lg"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg></button>
+        </div>
+        
+        <div id="on-screen-keyboard">
+            <div class="keyboard-row">
+                <button class="keyboard-key">q</button><button class="keyboard-key">w</button><button class="keyboard-key">e</button><button class="keyboard-key">r</button><button class="keyboard-key">t</button><button class="keyboard-key">y</button><button class="keyboard-key">u</button><button class="keyboard-key">i</button><button class="keyboard-key">o</button><button class="keyboard-key">p</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="keyboard-key wide-2">a</button><button class="keyboard-key">s</button><button class="keyboard-key">d</button><button class="keyboard-key">f</button><button class="keyboard-key">g</button><button class="keyboard-key">h</button><button class="keyboard-key">j</button><button class="keyboard-key">k</button><button class="keyboard-key">l</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="keyboard-key">z</button><button class="keyboard-key">x</button><button class="keyboard-key">c</button><button class="keyboard-key">v</button><button class="keyboard-key">b</button><button class="keyboard-key">n</button><button class="keyboard-key">m</button><button class="keyboard-key" data-char="backspace">⌫</button>
+            </div>
+            <div class="keyboard-row">
+                <button class="keyboard-key wide-3" data-char=" ">Space</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

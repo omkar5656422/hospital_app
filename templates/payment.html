@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sum Hospital Services ATM</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for a modern look -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+ <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"><body>
+    <!-- Slide 10: Payment -->
+        <div id="payment-slide" class="slide flex-col space-y-8">
+            <div class="bg-image-overlay" style="background-image: url('https://images.unsplash.com/photo-1596541223947-f275e11d044f?q=80&w=2574&auto=format&fit=crop');"></div>
+            <div class="relative z-10 w-full max-w-2xl p-8 rounded-2xl card flex flex-col items-center">
+                <h2 class="text-4xl font-semibold text-gray-800 mb-6">Complete Your Payment</h2>
+                <div id="payment-details-summary" class="w-full text-center p-4 rounded-lg bg-blue-50 border border-blue-200 mb-6">
+                    <p class="text-lg font-medium text-blue-800">Service: <span id="payment-service" class="font-bold"></span></p>
+                    <p class="text-2xl font-bold text-blue-900 mt-2">Amount: <span id="payment-amount">$0.00</span></p>
+                </div>
+                <div class="w-full">
+                    <p class="text-center text-gray-600 mb-4">Insert your card below to complete the payment.</p>
+                    <img src="https://placehold.co/600x200/fff/111?text=CARD+READER" alt="Mockup of a card reader" class="rounded-xl shadow-inner mx-auto">
+                    <form id="payment-form" class="w-full space-y-4 mt-6">
+                        <div class="flex flex-col">
+                            <label for="card-number" class="mb-2 font-medium text-gray-700">Card Number</label>
+                            <input type="text" id="card-number" placeholder="XXXX-XXXX-XXXX-XXXX" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                        </div>
+                        <div class="flex space-x-4">
+                            <div class="flex-1 flex flex-col">
+                                <label for="expiry-date" class="mb-2 font-medium text-gray-700">Expiry Date</label>
+                                <input type="text" id="expiry-date" placeholder="MM/YY" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                            </div>
+                            <div class="flex-1 flex flex-col">
+                                <label for="cvv" class="mb-2 font-medium text-gray-700">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" class="p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none transition-shadow" required>
+                            </div>
+                        </div>
+                        <button type="submit" id="pay-btn" class="w-full primary-btn mt-6">
+                            <span id="pay-btn-text">Pay Now</span>
+                            <div id="pay-btn-spinner" class="spinner mx-auto hidden"></div>
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <button data-target="main-menu-slide" class="nav-btn-back primary-btn self-start">Back</button>
+        </div>
+    </div>
+    
+</body>
+</html>
