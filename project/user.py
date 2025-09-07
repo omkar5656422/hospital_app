@@ -70,7 +70,14 @@ def save_live_appointment():
         writer = csv.writer(f)
         writer.writerow([specialty, date, location])
 
-    return redirect(url_for("hospitals_near_me"))
+    return redirect(url_for("live_appointments"))
+
+
+# -------- SEARCH FEATURE --------
+@app.route("/search")
+def search():
+    query = request.args.get("q", "")
+    return render_template("search_results.html", query=query)
 
 
 # ---------------- RUN APP ----------------
