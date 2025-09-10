@@ -4,9 +4,6 @@ import csv
 import os
 
 app = Flask(__name__)
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
 CORS(app)  # allows cross-origin requests
 
 # Create CSV file with headers if it doesn't exist
@@ -19,7 +16,8 @@ if not os.path.exists("appointments.csv"):
 @app.route("/")
 def home():
     return render_template("index.html")
-    # Menu page
+
+# Menu page
 @app.route("/menu")
 def menu():
     return render_template("menu.html")
@@ -48,4 +46,5 @@ def save_appointment():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=True)
